@@ -1,0 +1,17 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: nginx-alerts
+  namespace: monitoring
+spec:
+  groups:
+  - name: nginx.rules
+    rules:
+    - alert: NginxDeploymentUnavailable
+      expr: kube_deployment_status_replicas_available{deployment="nginx",namespace="dev"} < 1
+      for: 1m
+      labels:
+        severity: critical
+      annotations:
+        summary: Nginx deployment is unavailable
+        description: No available nginx replicas in namespace dev for more than 1 minute.
