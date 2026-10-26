@@ -3,4 +3,5 @@ kind: Kustomization
 
 resources:
 - flux-system
-- apps.yaml
+- nginx.yaml
+- monitoring.yaml
